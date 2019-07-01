@@ -1,14 +1,28 @@
 console.log("hello script js");
 
+const output = document.querySelector('#output');
+
+// add event listener to input
+document.querySelector('#input').addEventListener('change', function(event){
+    const currentInput = event.target.value;
+    inputHappened(currentInput);
+});
+
 const col = "🍍&nbsp";
 const rowInput = [];
-const rows = [];
 
-var inputHappened = function(currentInput){
+const inputHappened = function(currentInput){
+    // let userInput = currentInput.split(" ");
+    // console.log(userInput);
+
+    // let cleared = checkForClear(userInput);
+
     // if user input clear, reset rows to display
     if (currentInput === "clear") {
-        console.log("celaring!");
-        display("");
+        console.log("clearing!");
+        while (output.firstChild) {
+            output.removeChild(output.firstChild);
+        }
         rows.length = 0;
     }
     else {
@@ -30,6 +44,10 @@ var inputHappened = function(currentInput){
     clearForNewInput();
 };
 
+function checkForClear(){
+    console.log("hello!")
+}
+
 var addPineapples = function(input){
     let i = 1;
     // add pineapples to new row based on user input
@@ -37,11 +55,9 @@ var addPineapples = function(input){
         rowInput.push(col);
         i++;
     };
-    let newRow = `<p>${rowInput.join("")}</p>`;
-
-    // add newRow into rows to display
-    rows.push(newRow);
-    display(rows.join(""));
+    let newRow = document.createElement("p");
+    newRow.innerHTML = `<p>${rowInput.join("")}</p>`;
+    output.appendChild(newRow)
 };
 
 var clearForNewInput = function(){
